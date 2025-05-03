@@ -1,4 +1,12 @@
-import { Model, DataTypes } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
+import config from '../../../config/config.cjs';
+const { sequelize } = config;
+
+
+
+function gerarSKU() {
+  return 'SKU' + Math.random().toString(36).substr(2, 5).toUpperCase();
+}
 
 class Product extends Model {}
 
@@ -11,7 +19,7 @@ Product.init(
       autoIncrement: true
     },
     product_name: { 
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     quantity: { 
@@ -22,11 +30,11 @@ Product.init(
       allowNull: false
     },
     sku: {
-      type: DataTypes.CHAR(6),
-      allowNull: false,
+      type: DataTypes.STRING,  // Usando STRING em vez de CHAR
+      allowNull: true,
       unique: true
     },
-    imageUrl: {
+    image_url: {  // Alterando para snake_case
       type: DataTypes.STRING,
       allowNull: true
     },
@@ -37,11 +45,16 @@ Product.init(
   },
   {
     sequelize,
-    underscored: true,
     modelName: 'Product',
     tableName: 'products',
-
-  }
+    hooks: {
+      beforeCreate: (product, options) => {
+        if (!product.sku) {
+          product.sku = gerarSKU();
+        }
+      }
+    }
+  },
 );
 
 export default Product;

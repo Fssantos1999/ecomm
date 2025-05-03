@@ -50,4 +50,4 @@ Cart.belongsTo(Customer, {
   foreignKey: 'customer_id',  
 });
 
-export default Cart;
+module.exports(Cart)

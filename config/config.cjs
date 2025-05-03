@@ -1,6 +1,7 @@
-require('dotenv').config(); // Carregar as variáveis de ambiente do .env
+require('dotenv').config();
+const { Sequelize } = require('sequelize');
 
-module.exports = {
+const sequelize = new Sequelize({
   dialect: 'postgres',
   host: 'localhost',
   database: process.env.DB_NAME,
@@ -12,12 +13,14 @@ module.exports = {
     underscored: true,
   },
   migrations: {
-    path: './database/migrations',  // Caminho das migrações
+    path: './database/migrations',
   },
   seeders: {
-    path: './database/seeders',  // Caminho dos seeders
+    path: './database/seeders',
   },
   models: {
-    path: './src/models',  // Caminho dos modelos
-  }
-};
+    path: './src/models',
+  },
+});
+
+module.exports = { sequelize };  // Expor como CommonJS

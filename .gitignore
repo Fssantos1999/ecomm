@@ -23,3 +23,7 @@ Thumbs.db
 
 # Sequelize config
 sequelize-config.json
+
+# ESLint cache
+.eslintcache
+eslint.config.mjs
