@@ -22,6 +22,9 @@ Product.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    brand:{
+      type : DataTypes.STRING
+    }, 
     quantity: { 
       type: DataTypes.INTEGER,
     },
@@ -30,11 +33,11 @@ Product.init(
       allowNull: false
     },
     sku: {
-      type: DataTypes.STRING,  // Usando STRING em vez de CHAR
+      type: DataTypes.STRING,  
       allowNull: true,
       unique: true
     },
-    image_url: {  // Alterando para snake_case
+    image_url: {  
       type: DataTypes.STRING,
       allowNull: true
     },
@@ -42,6 +45,7 @@ Product.init(
       type: DataTypes.ENUM('ACTIVE', 'INACTIVE'),
       defaultValue: 'ACTIVE',
     },
+
   },
   {
     sequelize,
