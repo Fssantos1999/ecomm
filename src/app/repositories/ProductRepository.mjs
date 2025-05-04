@@ -19,14 +19,9 @@ export default class ProductRepository {
     }
   }
 
-
-  static async findProductBySku(sku) {
-    return await Product.findOne({ where: { sku } });
+  static async deleteProductBySku(sku){
+      return await Product.destroy({where:{sku}})
   }
-
-static async deleteProductBySku(sku){
-    return await Product.destroy({where:{sku}})
-}
 
 
 
