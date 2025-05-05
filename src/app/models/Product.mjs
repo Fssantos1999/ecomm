@@ -2,8 +2,6 @@ import { DataTypes, Model } from 'sequelize';
 import config from '../../../config/config.cjs';
 const { sequelize } = config;
 
-
-
 function gerarSKU() {
   return 'SKU' + Math.random().toString(36).substr(2, 5).toUpperCase();
 }

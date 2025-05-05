@@ -1,5 +1,5 @@
 
-import { createProduct, deleteProductBySku, findProductBySku } from "../service/productService.mjs";
+import { createProduct, deleteProductBySku, findProductBySku, updateProductBySku } from "../service/productService.mjs";
 
 class ProductController {
   async createProduct(req, res) {
@@ -52,15 +52,42 @@ class ProductController {
                 const {sku} = req.params
                  await deleteProductBySku(sku);
                  return res.status(204).send();
-          
+
         } catch (error) {
             res.status(404);
         }
         
     }
 
+    async update(req, res) {
+      try {
+        const { sku } = req.params;
+        const { product_name, price, quantity, image_url } = req.body;
+    
+        const data = { product_name, price, quantity, image_url };
+        
+        const updateProduct = await updateProductBySku(sku, data);
+    
+        res.status(200).json(updateProduct);
+      } catch (error) {
 
+        res.status(500).json({ message: error.message });
+      }
     }
+    
+    
+          
+          
+
+
+
+
+        }
+     
+     
+   
+
+      
 
 
 

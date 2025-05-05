@@ -23,4 +23,4 @@ const sequelize = new Sequelize({
   },
 });
 
-module.exports = { sequelize };  // Expor como CommonJS
+module.exports = { sequelize }; 

@@ -15,7 +15,7 @@ export default class ProductRepository {
     try {
       return await Product.findOne({ where: { sku } }); 
     } catch (error) {
-      throw new Error('Erro ao acessar o banco de dados: ' + error.message);
+      throw new Error('Erro ao localizar Produto: ' + error.message);
     }
   }
 
@@ -24,5 +24,22 @@ export default class ProductRepository {
   }
 
 
+static async findBySkuAndUpdateProduct(sku, data) {
+  try {
+    const [updatedCount] = await Product.update(data, { where: { sku } });
+
+    if (updatedCount === 0) {
+      throw new Error('Produto não encontrado ou não foi atualizado.');
+    }
+    return { sku, ...data }; 
+  } catch (error) {
+    throw new Error('Erro ao atualizar produto: ' + error.message);
+  }
+}
+  
+  
+
+
+  
 
 }

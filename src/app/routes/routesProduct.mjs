@@ -1,11 +1,11 @@
-
 import { Router } from "express";
 import ProductController from "../controller/ProductController.mjs";
-const router = Router ()
 
+const router = Router();
 
+router.post("/produto", ProductController.createProduct);
+router.get("/produto/:sku", ProductController.findProductBySku);
+router.delete("/produto/:sku", ProductController.deleteProduct);
+router.patch("/produto/:sku", ProductController.update);
 
-router.post("/produto",ProductController.createProduct)
-router.get("/produto/:sku",ProductController.findProductBySku)
-router.delete("/produto/:sku",ProductController.deleteProduct)
-export default router 
+export default router;

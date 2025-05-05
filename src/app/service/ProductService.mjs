@@ -1,5 +1,6 @@
 
 import ProductRepository from "../repositories/ProductRepository.mjs";
+import { validateSku } from "../utils/validateSKU.mjs";
 
 export async function createProduct(data) {
   try {
@@ -15,19 +16,24 @@ export async function createProduct(data) {
 }
 
 export async function findProductBySku(sku) {
-        if (!sku || typeof sku !== 'string') {
-          throw new Error('SKU inválido.');
-        }
-      
+       validateSku(sku)
         return await ProductRepository.findProductBySku(sku);
       }
       
       
 export async function deleteProductBySku(sku) {
-        if (!sku || typeof sku !== 'string') {
-          throw new Error('SKU inválido.');
-        }
+       validateSku(sku)
       
         return await ProductRepository.deleteProductBySku(sku);
       }
       
+      export async function updateProductBySku(sku, data) {
+          validateSku(sku);
+        
+          return await ProductRepository.findBySkuAndUpdateProduct(sku, data);
+        
+      }
+     
+      
+
+ 
