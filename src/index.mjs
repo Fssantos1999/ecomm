@@ -1,13 +1,15 @@
 import express from "express";
 import { Sequelize } from 'sequelize';
 import { sequelize } from "../config/config.cjs";
-import router from "./app/routes/routesProduct.mjs"; // nome correto
+import productRouter  from "./app/routes/routesProduct.mjs"; 
+import customerRouter  from "./app/routes/routesCustomer.mjs"
 
 const app = express();
 const port = 3000;
 
 app.use(express.json());
-app.use(router); // corrigido aqui
+app.use("/api", productRouter);
+app.use("/api", customerRouter);
 
 sequelize.authenticate()
   .then(() => {
