@@ -1,5 +1,6 @@
 import { Model, DataTypes } from 'sequelize';
-import Cart from './Cart';
+import config from '../../../config/config.cjs';
+const { sequelize } = config;
 
 class Customer extends Model {}
 
@@ -20,15 +21,12 @@ Customer.init(
       allowNull: false,
       unique: true,
     },
-    created_at: {
-      type: DataTypes.DATE,
+    password: {
+      type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: DataTypes.fn('NOW')
     },
-    updated_at: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.fn('NOW')
+    birthdate:{
+      type: DataTypes.DATE
     }
   },
   {
@@ -39,9 +37,5 @@ Customer.init(
     timestamps: true,
   }
 );
-
-Customer.hasOne(Cart, {
-  foreignKey: 'customer_id',  
-});
 
 export default Customer;

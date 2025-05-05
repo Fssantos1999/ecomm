@@ -1,5 +1,6 @@
 import { Model, DataTypes } from 'sequelize';
-import Customer from './Customer';
+import config from '../../../config/config.cjs';
+const { sequelize } = config;
 
 class Cart extends Model {}
 
@@ -25,29 +26,14 @@ Cart.init(
       allowNull: false,
       defaultValue: 0.0
     },
-    created_at: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.fn('NOW') 
-    },
-    updated_at: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.fn('NOW') 
-    }
   },
   {
     sequelize,
     modelName: 'Cart',
     tableName: 'carts',
     underscored: true,
-    timestamps: true, 
+    timestamps: true,
   }
 );
 
-
-Cart.belongsTo(Customer, {
-  foreignKey: 'customer_id',  
-});
-
-module.exports(Cart)
+export default Cart;
