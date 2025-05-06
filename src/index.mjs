@@ -11,6 +11,9 @@ app.use(express.json());
 app.use("/api", productRouter);
 app.use("/api", customerRouter);
 
+
+
+
 sequelize.authenticate()
   .then(() => {
     console.log('Connection has been established successfully.');

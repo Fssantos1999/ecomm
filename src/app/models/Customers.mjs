@@ -19,7 +19,17 @@ Customer.init(
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
+      unique: {
+        msg: 'Este e-mail já está em uso!',
+      },
+      validate: {
+        notEmpty: {
+          msg: 'O e-mail é obrigatório.',
+        },
+        isEmail: {
+          msg: 'Insira um e-mail válido.',
+        },
+      },
     },
     password: {
       type: DataTypes.STRING,
@@ -27,7 +37,7 @@ Customer.init(
     },
     birthdate:{
       type: DataTypes.DATE
-    }
+    },
   },
   {
     sequelize,

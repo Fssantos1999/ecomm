@@ -75,12 +75,6 @@ class ProductController {
       }
     }
     
-    
-          
-          
-
-
-
 
         }
      

@@ -3,34 +3,18 @@ import { createCustomer } from "../service/CustomerService.mjs";
 class CustomerController{
 
 
- async createCustomer(req,res) {
+  async createCustomer(req, res) {
+    const { name, email, birthdate, password } = req.body;
   
-    const {name,email,birthdate,password} = req.body ; 
-
-    const data  = {name,email,birthdate,password}; 
-
-    const dadoscustomer = await createCustomer(data);
-
-  try {
-
-   res.status(201).json(dadoscustomer);
-  } catch (error) {
-
-    res.status(500).json({ message: error.message });
-   
+    try {
+      const customerData = { name, email, birthdate, password };
+      const newCustomer = await createCustomer(customerData);
+      res.status(201).json(newCustomer);  
+    } catch (error) {
+      res.status(400).json({ error: error.message }); 
+    }
   }
-
- }
-
-
-
-
-
-
-
-
-
-
+  
 
 
 }
