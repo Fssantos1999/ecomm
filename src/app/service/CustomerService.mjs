@@ -1,5 +1,3 @@
-
-
 import CustomerRepository from "../repositories/CustomerRepository.mjs";
 
 export async function createCustomer(data) {
@@ -13,9 +11,6 @@ export async function createCustomer(data) {
         } catch (error) {
           throw new Error( error.message);
         }
- 
-      
-    
 }
 
 export async function updateCustomerByEmail(email, data) {
@@ -32,6 +27,14 @@ export async function updateCustomerByEmail(email, data) {
 export async function deleteCustomerByEmail(email) {
   try {
     return await CustomerRepository.deleteCustomerByEmail(email);
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+
+export async function findCustomerByEmail(email) {
+  try {
+    return await CustomerRepository.findCustomerByEmail(email);
   } catch (error) {
     throw new Error(error.message);
   }

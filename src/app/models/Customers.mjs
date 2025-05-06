@@ -47,5 +47,11 @@ Customer.init(
     timestamps: true,
   }
 );
+//PRECISEI FAZER UM PROTOPYE PQ NAO CONSEGUI REMOVER A SENHA DO JSON LA NO CONTROLLER
+Customer.prototype.toJSON = function () {
+  const values = { ...this.get() };
+  delete values.password;
+  return values;
+};
 
 export default Customer;

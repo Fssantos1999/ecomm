@@ -1,36 +1,37 @@
-
 import { createProduct, deleteProductBySku, findProductBySku, updateProductBySku } from "../service/productService.mjs";
 
 class ProductController {
-  async createProduct(req, res) {
+  async createProduct(req, res, next) {
     try {
-      const { product_name, quantity, price, image_url, status } = req.body;
+      const { product_name, quantity, price, image_url, status, brand } = req.body;
 
       if (!product_name || !price) {
         return res.status(400).json({
-          error: "Favor preencher os campos obrigatórios: product_name e price"
+          error: "Favor preencher os campos obrigatórios: product_name e price",
         });
       }
+
       const newProduct = await createProduct({
         product_name,
         price,
         quantity,
         image_url,
-        status: status || 'ACTIVE' 
+        brand,
+        status: status || "ACTIVE",
       });
 
-      return res.status(201).json(newProduct); 
+      const productData = newProduct.toJSON();
 
+      return res.status(201).json(productData);
     } catch (error) {
       console.error(error);
       return res.status(400).json({
-        error: "Erro ao criar o produto. Favor verificar a documentação da API para saber quais campos são necessários."
+        error: "Erro ao criar o produto. Favor verificar a documentação da API para saber quais campos são necessários.",
       });
     }
   }
 
-
-   async findProductBySku(req, res) {
+  async findProductBySku(req, res) {
     try {
       const { sku } = req.params;
 
@@ -47,43 +48,30 @@ class ProductController {
     }
   }
 
-    async deleteProduct(req,res) {
-        try {
-                const {sku} = req.params
-                 await deleteProductBySku(sku);
-                 return res.status(204).send();
-
-        } catch (error) {
-            res.status(404);
-        }
-        
+  async deleteProduct(req, res) {
+    try {
+      const { sku } = req.params;
+      await deleteProductBySku(sku);
+      return res.status(204).send();
+    } catch (error) {
+      res.status(404);
     }
+  }
 
-    async update(req, res) {
-      try {
-        const { sku } = req.params;
-        const { product_name, price, quantity, image_url } = req.body;
-    
-        const data = { product_name, price, quantity, image_url };
-        
-        const updateProduct = await updateProductBySku(sku, data);
-    
-        res.status(200).json(updateProduct);
-      } catch (error) {
+  async update(req, res) {
+    try {
+      const { sku } = req.params;
+      const { product_name, price, quantity, image_url } = req.body;
 
-        res.status(500).json({ message: error.message });
-      }
+      const data = { product_name, price, quantity, image_url };
+
+      const updateProduct = await updateProductBySku(sku, data);
+
+      res.status(200).json(updateProduct);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
     }
-    
-
-        }
-     
-     
-   
-
-      
-
-
-
+  }
+}
 
 export default new ProductController();

@@ -50,6 +50,21 @@ export default class CustomerRepository{
 }
 
 
+static async findCustomerByEmail(email){
+    try {
+        const customer = await Customer.findOne({ where: { email } });
+        if (!customer) {
+            throw new Error('Cliente não encontrado.');
+        }
+        return customer;
+    } catch (error) {
+        throw new Error('Erro ao buscar cliente: ' + error.message);
+    }
+
+
 
 
 }
+
+}
+

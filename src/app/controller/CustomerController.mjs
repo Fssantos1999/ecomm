@@ -1,15 +1,16 @@
 import { createCustomer, deleteCustomerByEmail, updateCustomerByEmail} from "../service/CustomerService.mjs";
-
+import { hash } from "bcrypt";
 class CustomerController{
-
-
   async createCustomer(req, res) {
     const { name, email, birthdate, password } = req.body;
-  
     try {
-      const customerData = { name, email, birthdate, password };
+      const passwordHeash = await hash(password, 10);
+
+      const customerData = { name, email, birthdate, password: passwordHeash };
+
       const newCustomer = await createCustomer(customerData);
-      res.status(201).json(newCustomer);  
+
+     return res.status(201).json(newCustomer);  
     } catch (error) {
     res.status(400).json({ error: error.message }); 
   }
@@ -38,11 +39,6 @@ updateCustomerByEmail = async (req, res) => {
       res.status(400).json({ error: error.message }); 
     }
   }
-
-
-
-
-
 
 }
 
