@@ -19,8 +19,37 @@ export default class CustomerRepository{
           } catch (error) {
             throw new Error('Erro ao criar cliente: ' + error.message);
           }
+      }
+
+      static async updateCustomerByEmail(email, data){
+        try {
+            const customer = await Customer.findOne({ where: { email } });
+            if (!customer) {
+                throw new Error('Cliente não encontrado.');
+            }
+            await customer.update(data);
+            return customer;
+        } catch (error) {
+            throw new Error('Erro ao atualizar cliente: ' + error.message);
+        }
+}
+
+  static async deleteCustomerByEmail(email){
+      try {
+          const customer = await Customer.findOne({ where: { email } });
+          if (!customer) {
+              throw new Error('Cliente não encontrado.');
+          }
+          await customer.destroy();
+          return customer;
+      } catch (error) {
+          throw new Error('Erro ao deletar cliente: ' + error.message);
+      }
 
 
 }
+
+
+
 
 }
