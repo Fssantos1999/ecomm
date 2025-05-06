@@ -2,7 +2,7 @@ export function validateCustomer(req, res, next) {
     const { name, email, password, birthdate } = req.body;
   
     if (!name || String(name).trim().length < 2) {
-      return res.status(400).json({ error: "Nome é obrigatório e deve ter ao menos 2 caracteres." });
+      return res.status(400).json({ error: "Nome é obrigatório e deve ter ao menos 3 caracteres." });
     }
   
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -14,7 +14,7 @@ export function validateCustomer(req, res, next) {
     }
   
     if (!birthdate || !isValidBirthdate(birthdate)) {
-      return res.status(400).json({ error: "Cliente deve ter no minimo 18 anos" });
+      return res.status(400).json({ error: "Voce tem que ser maior de 18 anos" });
     }
   
     next();
