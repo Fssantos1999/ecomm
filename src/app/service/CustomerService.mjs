@@ -39,3 +39,13 @@ export async function findCustomerByEmail(email) {
     throw new Error(error.message);
   }
 }
+
+export async function findCustomerCartById(id) {
+  try {
+    return await CustomerRepository.findCustomerCartById(id);
+  }catch(e){
+    throw new exception("Erro ao buscar carrinho do cliente: " + e.message);
+  }
+  
+  
+}

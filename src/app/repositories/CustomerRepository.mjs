@@ -1,3 +1,4 @@
+import { where } from "sequelize";
 import Cart from "../models/Cart.mjs";
 import Customer from "../models/Customers.mjs";
 
@@ -18,12 +19,30 @@ export default class CustomerRepository{
             }
             Cart.create({ customer_id: customer.id }); 
         
-
             return customer;
           } catch (error) {
             throw new Error('Erro ao criar cliente: ' + error.message);
           }
       }
+      static async findCustomerCartById(id){
+        try {
+            const customer = await Customer.findOne({ where: { id } });
+            if (!customer) {
+                throw new Error('Cliente não encontrado.');
+            }
+            const cart = await Cart.findOne({ where: { customer_id: id } });
+            if (!cart) {
+                throw new Error('Carrinho não encontrado.');
+            }
+           
+            return cart;       
+
+        }catch (error) {
+            throw new Error('Erro ao buscar carrinho do cliente: ' + error.message);
+        }
+
+      }
+
 
       static async updateCustomerByEmail(email, data){
         try {
@@ -65,10 +84,8 @@ static async findCustomerByEmail(email){
         throw new Error('Erro ao buscar cliente: ' + error.message);
     }
 
-
-
-
 }
+
 
 }
 
