@@ -1,3 +1,4 @@
+import Cart from "../models/Cart.mjs";
 import Customer from "../models/Customers.mjs";
 
 export default class CustomerRepository{
@@ -15,6 +16,9 @@ export default class CustomerRepository{
             if (!created) {
               throw new Error('Já existe um cliente cadastrado com este e-mail.');
             }
+            Cart.create({ customer_id: customer.id }); 
+        
+
             return customer;
           } catch (error) {
             throw new Error('Erro ao criar cliente: ' + error.message);
