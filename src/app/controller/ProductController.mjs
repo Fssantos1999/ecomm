@@ -1,7 +1,7 @@
 import { createProduct, deleteProductBySku, findProductBySku, updateProductBySku } from "../service/productService.mjs";
 
 class ProductController {
-  async createProduct(req, res, next) {
+  async createProduct(req, res) {
     try {
       const { product_name, quantity, price, image_url, status, brand } = req.body;
 
@@ -10,7 +10,6 @@ class ProductController {
           error: "Favor preencher os campos obrigatórios: product_name e price",
         });
       }
-
       const newProduct = await createProduct({
         product_name,
         price,
@@ -19,12 +18,9 @@ class ProductController {
         brand,
         status: status || "ACTIVE",
       });
-
-      const productData = newProduct.toJSON();
-
-      return res.status(201).json(productData);
+     
+      return res.status(201).json(newProduct);
     } catch (error) {
-      console.error(error);
       return res.status(400).json({
         error: "Erro ao criar o produto. Favor verificar a documentação da API para saber quais campos são necessários.",
       });
