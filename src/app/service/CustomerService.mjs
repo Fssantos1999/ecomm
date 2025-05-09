@@ -18,11 +18,21 @@ export async function updateCustomerByEmail(email, data) {
     if (!data.name || !data.email || !data.birthdate || !data.password) {
       throw new Error("Favor verificar se todos os campos estão preenchidos para continuar.");
     }
+    
     return await CustomerRepository.updateCustomerByEmail(email, data);
   } catch (error) {
     throw new Error(error.message);
   }
 }
+
+export async function findCustomerCartById(id) {
+  try {
+    return await CustomerRepository.findCustomerCartById(id);
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+
 
 export async function deleteCustomerByEmail(email) {
   try {
@@ -40,12 +50,9 @@ export async function findCustomerByEmail(email) {
   }
 }
 
-export async function findCustomerCartById(id) {
-  try {
-    return await CustomerRepository.findCustomerCartById(id);
-  }catch(e){
-    throw new exception("Erro ao buscar carrinho do cliente: " + e.message);
-  }
+
   
   
-}
+
+
+

@@ -1,4 +1,4 @@
-import { createCustomer, deleteCustomerByEmail, findCustomerCartById, updateCustomerByEmail} from "../service/CustomerService.mjs";
+import { createCustomer, deleteCustomerByEmail, findCustomerCartById, updateCustomerByEmail,findCustomerByEmail} from "../service/CustomerService.mjs";
 import { hash } from "bcrypt";
 class CustomerController{
 
@@ -29,6 +29,9 @@ updateCustomerByEmail = async (req, res) => {
     const { name, birthdate, password } = req.body;
   
     try {
+      if (req.userId !== email) {
+        return res.status(403).json({ error: "Você não tem permissão para deletar este usuário." });
+    }
       const customerData = { name, email, birthdate, password };
       const updatedCustomer = await updateCustomerByEmail(email, customerData);
       res.status(200).json(updatedCustomer);  
@@ -39,8 +42,10 @@ updateCustomerByEmail = async (req, res) => {
 
  async  deleteCustomerByEmail(req, res) {
     const { email } = req.params;
-  
     try {
+      if (req.userId !== email) {
+        return res.status(403).json({ error: "Você não tem permissão para deletar este usuário." });
+    }
        await deleteCustomerByEmail(email);
       res.status(204).send();  
     } catch (error) {
@@ -62,6 +67,19 @@ async findCustomerCartById(req, res) {
     }
 
 }
+
+async findCustomerByEmail(req, res) {
+    const { email } = req.params;
+    try {
+      const customer = await findCustomerByEmail(email);
+      if (!customer) {
+        return res.status(404).json({ message: "Cliente não encontrado." });
+      }
+      res.status(200).json(customer);
+    } catch (error) {
+      res.status(500).json({ message: "Erro interno ao buscar cliente." });
+    }
+  }
 
 }
 export default new  CustomerController();

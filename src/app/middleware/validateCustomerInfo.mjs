@@ -11,6 +11,9 @@ export function validateCustomer(req, res, next) {
     if (!birthdate || !isValidBirthdate(birthdate)) {
       return res.status(400).json({ error: "Voce tem que ser maior de 18 anos" });
     }
+    if(password.length < 6){
+      return res.status(400).json({ error: "A senha deve ter pelo menos 6 caracteres." });
+    }
   }
   
   function isValidBirthdate(dateString) {
