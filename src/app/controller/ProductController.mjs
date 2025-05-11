@@ -20,8 +20,6 @@ class ProductController {
         status: status || "ACTIVE",
       });
 
-
-     
       return res.status(201).json(newProduct);
     } catch (error) {
       return res.status(400).json({
