@@ -34,6 +34,19 @@ export async function deleteProductBySku(sku) {
         
       }
      
+ export async function filterProductsByPrice(price) {
+  try {
+    const products = await ProductRepository.filterProductByPrice(price);
+    if (products.length === 0) {
+      throw new Error("Nenhum produto encontrado com o preço informado.");
+    }
+    if(price){
+      products.sort((a, b) => a.price - b.price);
+    }
+    return products;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+  
 
-
- 
+ }

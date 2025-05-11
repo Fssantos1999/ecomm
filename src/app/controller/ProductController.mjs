@@ -1,4 +1,5 @@
-import { createProduct, deleteProductBySku, findProductBySku, updateProductBySku } from "../service/productService.mjs";
+import { filterProductByBrand } from "../service/CustomerService.mjs";
+import { createProduct, deleteProductBySku, findProductBySku, updateProductBySku , filterProductsByPrice} from "../service/productService.mjs";
 
 class ProductController {
   async createProduct(req, res) {
@@ -18,6 +19,8 @@ class ProductController {
         brand,
         status: status || "ACTIVE",
       });
+
+
      
       return res.status(201).json(newProduct);
     } catch (error) {
@@ -68,6 +71,23 @@ class ProductController {
       res.status(500).json({ message: error.message });
     }
   }
+  async filterProductsByBrand(req, res) {
+    try {
+      const { brand } = req.params;
+      res.status(200).json(await filterProductByBrand(brand));
+    } catch (error) {
+      res.status(404).json({"message": "Nenhum produto encontrado com a marca informada."});
+    }
+  }
+  async filterProductByPrice(req, res) {
+    try {
+      const { price } = req.params;
+      res.status(200).json(await filterProductsByPrice(price));
+    } catch (error) {
+      res.status(404).json({ message: "Nenhum produto encontrado com o preço informado." });
+    }
+  }
 }
+
 
 export default new ProductController();

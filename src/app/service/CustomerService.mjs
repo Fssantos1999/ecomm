@@ -33,6 +33,17 @@ export async function findCustomerCartById(id) {
   }
 }
 
+export async function filterProductByBrand(brand) {
+try{
+  const brandFilter = await ProductRepository.filterProductsByBrand(brand);
+  if(brandFilter.length === 0){
+    throw new Error("Nenhum produto encontrado com a marca informada.");  
+  }
+}catch(error){
+  throw new Error(error.message);
+}
+
+}
 
 export async function deleteCustomerByEmail(email) {
   try {

@@ -37,9 +37,24 @@ static async findBySkuAndUpdateProduct(sku, data) {
   }
 }
   
-  
+                                                      
+static async filterProductsByBrand(brand) {
+  try {
+    const products = await Product.findAll({ where: { brand } });
+    return products;
+  } catch (error) {
+    throw new Error('Erro ao filtrar produtos por marca: ' + error.message);
+  }
+} 
 
+static async filterProductByPrice(price) {
+  try {
+    const products = await Product.findAll({ where: { price } });
+    return products;
+  } catch (error) {
+    throw new Error('Erro ao filtrar produtos por preço: ' + error.message);
+  }
 
-  
+ }
 
-}
+  }

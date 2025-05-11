@@ -2,16 +2,11 @@ import { createCustomer, deleteCustomerByEmail, findCustomerCartById, updateCust
 import { hash } from "bcrypt";
 class CustomerController{
 
-
-
   async createCustomer(req, res) {
     console.log(req.body);
     const { name, email, birthdate, password } = req.body;
     try {
-      if( password.length < 6){
-        return res.status(400).json({ error: "A senha deve ter pelo menos 6 caracteres." });
-      }
-
+ 
       const passwordHeash = await hash(password, 10);
 
       const customerData = { name, email, birthdate, password: passwordHeash };
@@ -39,6 +34,7 @@ updateCustomerByEmail = async (req, res) => {
       res.status(400).json({ message: "Erro ao atualizar o cliente." }); 
     }
   }
+  
 
  async  deleteCustomerByEmail(req, res) {
     const { email } = req.params;
