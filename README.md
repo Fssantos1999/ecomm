@@ -24,25 +24,29 @@
 - ✅ Integração com banco de dados PostgreSQL usando Sequelize
 
 ---
-## 📮 API Endpoints
+# 📌 Endpoints da API
 
-### 🔐 Authentication
-- **POST** `/login` – Authenticate user and receive a JWT.
+### 🔐 Autenticação
+- **POST** `/login` – Autentica o usuário e retorna um JWT.
 
-### 👤 Customers
-- **POST** `/customer/register` – Register a new customer.
-- **GET** `/customer/cart/:id` – Get the customer's cart by ID.
-- **PATCH** `/customer/:email` – Update customer details by email.
-- **DELETE** `/customer/:email` – Delete a customer by email.
-- **GET** `/customer/:email` – Get customer details by email.
+---
 
-### 📦 Products
-- **POST** `/produto` – Create a new product.
-- **GET** `/produto/:sku` – Get product details by SKU.
-- **DELETE** `/produto/:sku` – Delete product by SKU.
-- **PATCH** `/produto/:sku` – Update product details by SKU.
-- **GET** `/produto/filter/:brand` – Filter products by brand.
-- **GET** `/produto/filter/price/:price` – Filter products by price range.
+### 👤 Clientes
+- **POST** `/customer/register` – Cadastra um novo cliente.
+- **GET** `/customer/cart/:id` – Retorna o carrinho do cliente pelo ID.
+- **PATCH** `/customer/:email` – Atualiza os dados do cliente pelo e-mail.
+- **DELETE** `/customer/:email` – Remove o cliente pelo e-mail.
+- **GET** `/customer/:email` – Retorna os dados do cliente pelo e-mail.
+
+---
+
+### 📦 Produtos
+- **POST** `/produto` – Cadastra um novo produto.
+- **GET** `/produto/:sku` – Retorna os detalhes do produto pelo SKU.
+- **DELETE** `/produto/:sku` – Remove o produto pelo SKU.
+- **PATCH** `/produto/:sku` – Atualiza os dados do produto pelo SKU.
+- **GET** `/produto/filter/:brand` – Filtra os produtos pela marca.
+- **GET** `/produto/filter/price/:price` – Filtra os produtos por faixa de preço.
 
 
 
